@@ -15,7 +15,7 @@
 	<artifactId>microservices-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>microservices-demo</name>
-	<description>Microservices Demo project for Spring Boot</description>
+	<description>Microservices demo project for Spring Boot</description>
 	<packaging>pom</packaging>
 
 	<properties>
