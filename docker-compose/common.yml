@@ -1,0 +1,10 @@
+version: '3.7'
+
+networks:
+  application:
+    # default network will use IP which is not handy to operate
+    # also default network doesn't allow containers to access each other through IP addresses
+    # bridge network will allow containers on the same bridge network to communicate and use hostnames...
+    # ... while preventing containers from other bridge networks to access.
+    # This is enforced by the bridge driver through its rules.
+    driver: bridge
