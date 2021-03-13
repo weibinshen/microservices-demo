@@ -97,6 +97,10 @@
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>${spring-cloud-dependencies.version}</version>
 				<type>pom</type>
+<!--				Though we can specify managed dependencies through inheritance, -->
+<!--				in larger projects it may be impossible to accomplish this since a project can only inherit from a single parent. -->
+<!--				To accommodate this, projects can import managed dependencies from other projects. -->
+<!--				This is accomplished by declaring a POM artifact as a dependency with a scope of "import".-->
 				<scope>import</scope>
 			</dependency>
 
