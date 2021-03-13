@@ -1,0 +1,18 @@
+# bootstrap.yml is loaded by a parent spring application context.
+# It is required in case of loading configuration in bootstrap phase, which has priority over application.yml
+spring:
+  application:
+    name: configserver
+  cloud:
+    config:
+      server:
+        git:
+          # For learning purpose here I'm just using the local file system.
+          # But in this case, the configuration data will not be cloned by the configuration server.
+          # For high availability and repository caching,
+          # We should use ssh with shared file system, or HTTP with remote git repo.
+          uri: file://Users/weibinshen/Projects/microservices-demo/config-server-repository
+          # We clone the configuration repository on the startup.
+          clone-on-start: true
+    # If config server cannot reach config repo and load the config, it will stop immediately.
+    fail-fast: true
