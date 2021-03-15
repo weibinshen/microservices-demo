@@ -1,0 +1,13 @@
+# Fetching of configuration from config server is put into bootstrap.yml
+# So that it happens before loading the application configuration.
+spring:
+  application:
+    name: twitter-to-kafka-service
+  profiles:
+    active: twitter_to_kafka
+  cloud:
+    config:
+      # "config-client" matches with the file name "config-client-twitter_to_kafka.yml"
+      # which is in the config-server-repository.
+      name: twitter-to-kafka-service,config-client
+      uri: http://localhost:8888
