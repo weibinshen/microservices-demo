@@ -18,3 +18,7 @@ spring:
           clone-on-start: true
     # If config server cannot reach config repo and load the config, it will stop immediately.
     fail-fast: true
+  security:
+    user:
+      name:
+      password: 
