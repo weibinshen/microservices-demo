@@ -9,5 +9,7 @@ spring:
     config:
       # "config-client" matches with the file name "config-client-twitter_to_kafka.yml"
       # which is in the config-server-repository.
+      # To confirm that the configuration is properly hosted locally, check this URL from browser
+      # http://localhost:8888/config-client/twitter_to_kafka
       name: twitter-to-kafka-service,config-client
       uri: http://localhost:8888
