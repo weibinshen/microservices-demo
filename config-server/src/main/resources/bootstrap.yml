@@ -20,5 +20,5 @@ spring:
     fail-fast: true
   security:
     user:
-      name:
-      password: 
+      name: spring_cloud_user
+      password: ENC(fnJR+MVdVzCd4YibOkAIpJO4BZ2kJpR1oU6JqL3w7w6F/gWdSWX2tJE6pMtUqNJIcJL2yvo9UyjR677akDrh7Q==)
