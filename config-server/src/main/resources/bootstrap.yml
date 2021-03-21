@@ -13,12 +13,12 @@ spring:
           # If we don't set main, Spring Cloud still looks for master...
           default-label: main
           username: weibinshen
-          password: _
+          password: '{cipher}a7101cc10a8f0f8e1ebfca04fc816eec623d416d7764b93cb11d334be01214ba'
           # We clone the configuration repository on the startup.
           clone-on-start: true
     # If config server cannot reach config repo and load the config, it will stop immediately.
     fail-fast: true
   security:
     user:
-      name:
-      password: 
+      name: spring_cloud_user
+      password: '{cipher}bafe4683609000e943808cf8203b8b2d27e1dbeec884939c7f5cad726d4c6e600b721732d5803fe65d3957d39374fdba'
