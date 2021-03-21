@@ -6,7 +6,8 @@ import org.jasypt.iv.RandomIvGenerator;
 public class TestJasypt {
 
     public static void main(String[] args) {
-
+        // Jasypt doesn't use PBKDF2 for generating the encryption key
+        // So we didn't choose Jasypt, and moved on with JCE.
         StandardPBEStringEncryptor standardPBEStringEncryptor = new StandardPBEStringEncryptor();
         standardPBEStringEncryptor.setPassword("");
         standardPBEStringEncryptor.setAlgorithm("PBEWithHMACSHA512AndAES_256");
