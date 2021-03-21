@@ -18,6 +18,9 @@ spring:
           clone-on-start: true
     # If config server cannot reach config repo and load the config, it will stop immediately.
     fail-fast: true
+  # Using JCE, the config server decrypt the secrets at bootstrap time and then send decrypted secrets to other microservices
+  # This means we must enable SSL/TLS communication in production.
+  # An alternative to this will be to use asymmetric encryption where decryption is at each microservices.
   security:
     user:
       name: spring_cloud_user
