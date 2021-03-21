@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // There are encrypt and decrypt endpoint already compatible with Spring boot CLI.
+    // Here the ignoring will bypass these two end points from authentication of spring security
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
