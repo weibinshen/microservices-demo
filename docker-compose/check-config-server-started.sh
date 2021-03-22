@@ -4,6 +4,7 @@
 # depends_on from Docker is not enough for us,
 # because that only checks if the Docker container is up,
 # not whether our application inside the container is up.
+# We need to make sure we run 'chmod +x check-config-server-started.sh'
 
 apt-get update -y
 
@@ -20,4 +21,5 @@ while [[ ! $curlResult == "200" ]]; do
 done
 
 # move on with launching our service. This is the original entrypoint.
+# To run bash shell on a specific container, use 'docker exec -it <containerID> /bin/bash'
 ./cnb/lifecycle/launcher

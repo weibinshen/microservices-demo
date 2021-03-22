@@ -14,6 +14,8 @@ services:
       # So we need the shell script check-config-server-started.sh as our entry point.
       - config-server
     environment:
+      # In case of not-enough-memory error from JVM, raise Docker memory usage
+      # Reducing these numbers doesn't help much, and can prevent the service from launching.
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xms128m -Xmx256m"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
       - "LOGGING_LEVEL_ROOT=info"
