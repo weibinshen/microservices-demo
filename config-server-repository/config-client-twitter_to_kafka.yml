@@ -1,5 +1,8 @@
 # To confirm that the configuration is properly hosted by the config server locally, check this URL from browser
 # http://localhost:8888/config-client/twitter_to_kafka
+server:
+  port: 8181
+
 twitter-to-kafka-service:
   twitter-keywords:
     - Java
