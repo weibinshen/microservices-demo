@@ -31,7 +31,8 @@ services:
     image: ${GROUP_ID}/config.server:${SERVICE_VERSION:-latest}
     ports:
       - "5006:5006"
-      # Question: Should I also put  - "8888:8888" here?
+      # Open port 8888 so services outside of the docker containers can reach the config server hosted by docker.
+      - "8888:8888"
     volumes:
       - "./docker-logs:/workspace/config-server/logs"
     environment:
