@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TwitterElasticsearchQueryRepository extends ElasticsearchRepository<TwitterIndexModel, String> {
-
+    // findByText is implemented by Spring at runtime
     List<TwitterIndexModel> findByText(String text);
 }
