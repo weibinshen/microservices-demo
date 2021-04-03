@@ -14,3 +14,10 @@ elastic-config:
   connection-url: http://localhost:9200
   connect-timeout-ms: 5000
   socket-timeout-ms: 30000
+
+# Normally these information should come from a persistent store or LDAP
+# But just for simplicity here we add these from the configuration file.
+user-config:
+  username: test
+  password: '{cipher}c9f92fb46a46ef237e51c5d3af40d6c110ca8b0e71706bf23ff11c49b0038f0c'
+  roles: USER
