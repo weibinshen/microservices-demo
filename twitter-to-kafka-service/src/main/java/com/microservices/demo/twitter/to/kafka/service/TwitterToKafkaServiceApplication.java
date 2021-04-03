@@ -19,6 +19,11 @@ public class TwitterToKafkaServiceApplication implements CommandLineRunner {
 
     private final StreamInitializer streamInitializer;
 
+    // There are basically two ways to inject object in Spring: Field injection using @Autowired, and constructor injection
+    // Constructor injection is preferred throughout this project because:
+    // 1. It allows beans to be immutable, by adding a final keyword to the bean, increasing robustness and thread safety.
+    // 2. Bean creation is forced by the constructor of the dependant.
+    // 3. Field injection will trigger introspection by Spring, which makes the code to run slower in general.
     public TwitterToKafkaServiceApplication(StreamRunner runner, StreamInitializer initializer) {
         this.streamRunner = runner;
         this.streamInitializer = initializer;
