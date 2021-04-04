@@ -48,6 +48,7 @@ public class ElasticDocumentController {
     public @ResponseBody
     ResponseEntity<List<ElasticQueryServiceResponseModel>>
     // Add @RequestBody annotation will deserialize JSON  into java object.
+    // @Valid: process validation on all validation annotations on the object.
     getDocumentByText(@RequestBody @Valid ElasticQueryServiceRequestModel elasticQueryServiceRequestModel) {
         List<ElasticQueryServiceResponseModel> response =
                 elasticQueryService.getDocumentByText(elasticQueryServiceRequestModel.getText());
