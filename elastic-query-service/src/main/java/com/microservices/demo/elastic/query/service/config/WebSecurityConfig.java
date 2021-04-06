@@ -1,10 +1,12 @@
 package com.microservices.demo.elastic.query.service.config;
 
 import com.microservices.demo.config.UserConfigData;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +22,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userConfigData = userData;
     }
 
+    // @Value can be used for injecting values into fields in Spring-managed beans
+    // For web client, we only bypass security for certain paths:
+    @Value("${security.paths-to-ignore}")
+    private String[] pathsToIgnore;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -32,6 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // The defense requires the browser to send a token to server.
                 // Since our service doesn't take browser interactions, we can disable it and remove one spring security filter.
                 .csrf().disable();
+    }
+
+    @Override
+    public void configure(WebSecurity webSecurity) throws Exception {
+        webSecurity
+                .ignoring()
+                .antMatchers(pathsToIgnore);
     }
 
     @Override
