@@ -1,4 +1,4 @@
-package com.microservices.demo.elastic.query.service.api.error.handler;
+package com.microservices.demo.elastic.query.service.common.api.error.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice // Enables Exception Handling globally
+@ControllerAdvice // Enables Exception Handling globally, uses spring-web dependency
 public class ElasticQueryServiceErrorHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ElasticQueryServiceErrorHandler.class);
