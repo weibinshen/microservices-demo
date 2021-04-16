@@ -16,3 +16,8 @@ services:
       - "DB_USER=keycloak"
       - "DB_SCHEMA=keycloak"
       - "DB_PASSWORD=keycloak"
+
+# The schema relating to our configuration can be simplified as:
+# Client ---< Scope ---< Role >--- Group ---< User
+# Though, client can directly have many roles without going through scopes
+# also users can have many roles without going through groups.
