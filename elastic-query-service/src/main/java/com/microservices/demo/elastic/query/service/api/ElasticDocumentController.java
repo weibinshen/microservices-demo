@@ -13,12 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
+@PreAuthorize("isAuthenticated()")
 @RestController // @RestController = @Controller + @ResponseBody
 // Here we use media type versioning through declaring "produces = "application/vnd.api.v1+json""
 // vnd.api.v1+json indicates we are using JSON API with the custom vendor media type.
@@ -98,6 +100,15 @@ public class ElasticDocumentController {
         return ResponseEntity.ok(responseModelV2);
     }
 
+    // Though inside TwitterQueryUserJwtConverter, we are prepending "ROLE_" to "APP_USER_ROLE"
+    // However in SecurityContextHolderAwareRequestWrapper::isUserInRole which calls isGranted
+    // `role = this.rolePrefix + role;` is performed.
+    // So in here, we don't prepend "ROLE_" to "APP_USER_ROLE"
+    // Typically, when NOT using a custom GWT converter, only the scope definition will be added to authorities
+    // So we use an || operator to also provide the default hasAuthority check.
+    // With these configs, if APP_ADMIN_ROLE wants to access this API through http://localhost:8183/elastic-query-service/documents/get-document-by-text
+    // A authorization error (a.k.a. 400 Bad Request) will be returned
+    @PreAuthorize("hasRole('APP_USER_ROLE') || hasAuthority('SCOPE_APP_USER_ROLE')")
     @Operation(summary = "Get elastic document by text.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful response.", content = {

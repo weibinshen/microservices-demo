@@ -1,10 +1,20 @@
 elastic-query-service:
   version: v1
+  custom-audience: elastic-query-service
 
 server:
   port: 8183
   servlet:
     context-path: /elastic-query-service
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/auth/realms/microservices-realm
+          # for loading public key in order to validate what's signed by the private key.
+          jwk-set-uri: http://localhost:8081/auth/realms/microservices-realm/protocol/openid-connect/certs
 
 elastic-query-config:
   text-field: text
