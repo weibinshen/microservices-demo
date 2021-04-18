@@ -46,6 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // We use STATELESS here to disable Sessions, so each request from the client is re-validated always.
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                // cross-site-request-forgery: an attack to use already-authenticated user's session to do unwanted actions, from the browser
+                // The defense requires the browser to send a token to server.
+                // Since our service doesn't take browser interactions, we can disable it and remove one spring security filter.
                 .csrf()
                 .disable()
                 .authorizeRequests()
