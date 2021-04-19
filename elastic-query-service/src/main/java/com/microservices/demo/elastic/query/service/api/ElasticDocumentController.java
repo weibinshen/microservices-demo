@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,7 @@ public class ElasticDocumentController {
     @Value("${server.port}")
     private String port;
 
+    @PostAuthorize("hasPermission(returnObject, 'READ')")
     @Operation(summary = "Get all elastic documents.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful response.", content = {
@@ -59,6 +61,7 @@ public class ElasticDocumentController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasPermission(#id, 'ElasticQueryServiceResponseModel','READ')")
     @Operation(summary = "Get elastic document by id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful response.", content = {
@@ -108,7 +111,8 @@ public class ElasticDocumentController {
     // So we use an || operator to also provide the default hasAuthority check.
     // With these configs, if APP_ADMIN_ROLE wants to access this API through http://localhost:8183/elastic-query-service/documents/get-document-by-text
     // A authorization error (a.k.a. 400 Bad Request) will be returned
-    @PreAuthorize("hasRole('APP_USER_ROLE') || hasAuthority('SCOPE_APP_USER_ROLE')")
+    @PreAuthorize("hasRole('APP_USER_ROLE') || hasRole('APP_SUPER_USER_ROLE') || hasAuthority('SCOPE_APP_USER_ROLE')")
+    @PostAuthorize("hasPermission(returnObject, 'READ')")
     @Operation(summary = "Get elastic document by text.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful response.", content = {

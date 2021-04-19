@@ -21,3 +21,6 @@ services:
 # Client ---< Scope ---< Role >--- Group ---< User
 # Though, client can directly have many roles without going through scopes
 # also users can have many roles without going through groups.
+
+# To use user-password mode to obtain an access token when web client isn't developed yet:
+#  curl -X POST -d 'grant_type=password&username=app_user&password=app_user&client_it_secret=94886fc2-fa40-4ab0-ac8f-5db365fabe0e' http://localhost:8081/auth/realms/microservices-realm/protocol/openid-connect/token

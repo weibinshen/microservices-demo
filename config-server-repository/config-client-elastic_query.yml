@@ -15,6 +15,25 @@ spring:
           issuer-uri: http://localhost:8081/auth/realms/microservices-realm
           # for loading public key in order to validate what's signed by the private key.
           jwk-set-uri: http://localhost:8081/auth/realms/microservices-realm/protocol/openid-connect/certs
+  jpa:
+    open-in-view: false
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+  datasource:
+    # use public schema and binaryTransfer for better performance
+    # reWriteBatchedInserts=true will allow all SQL inserts within one transaction to be sent in batches.
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public&binaryTransfer=true&reWriteBatchedInserts=true
+    username: postgres
+    password: '{cipher}<encrypted password>'
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
+    schema: classpath:init-schema.sql
+    data: classpath:init-data.sql
+    # For demo purpose, we re-run the SQL files each time when the DB starts.
+    initialization-mode: always
 
 elastic-query-config:
   text-field: text
