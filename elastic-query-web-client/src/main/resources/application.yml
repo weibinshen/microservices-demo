@@ -1,0 +1,14 @@
+# Here we override the config server config file.
+# In that file we have client-side load balancing between two query services.
+# Here we only allow one query service for testing purposes.
+logging:
+  level:
+    root: DEBUG
+
+elastic-query-web-client:
+  webclient:
+    instances:
+      -
+        id: elastic-query-service-1
+        host: localhost
+        port: 8183

@@ -32,6 +32,28 @@ elastic-query-web-client:
 spring:
   thymeleaf:
     cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: 'elastic-query-web-client'
+            # find this client-secret from keycloak, under Client entity, select elastic-query-web-client
+            client-secret: '{cipher}92b4bbdc142ad7a9cbf85ebfeec213026187c4641c8c7709fd1d1801abc5a1f5e0cbf6c277f82af75d7e8b106ba11afaacd0fc366869d7065590814c877004af'
+            authorization-grant-type: authorization_code
+            # base url is also configured in keycloak. we configured it to http://localhost:8184/elastic-query-web-client
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            # Setting scope to openid makes the oauth flow to support openid by returning an ID token along with access token.
+            scope: openid
+        provider:
+          keycloak:
+            # Spring Security 5 automatically configures an OAuth2 client as far as the issuerUri is specified.
+            issuerUri: http://localhost:8081/auth/realms/microservices-realm
+
+
+security:
+  logout-success-url: http://localhost:8184/elastic-query-web-client
+  default-client-registration-id: keycloak
 
 user-config:
   username: test
