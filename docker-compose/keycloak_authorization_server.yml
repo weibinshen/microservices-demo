@@ -4,12 +4,12 @@ services:
     image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION:-latest}
     hostname: keycloak-server
     ports:
-      - "8081:8081"
+      - "9091:9091"
     environment:
       - "KEYCLOAK_USER=admin"
       - "KEYCLOAK_PASSWORD=admin"
-      # Run the service and use it from http://localhost:8081/auth/
-      - "JAVA_OPTS=-Djboss.http.port=8081"
+      # Run the service and use it from http://localhost:9091/auth/
+      - "JAVA_OPTS=-Djboss.http.port=9091"
       - "DB_VENDOR=POSTGRES"
       - "DB_ADDR=host.docker.internal"
       - "DB_DATABASE=keycloak"

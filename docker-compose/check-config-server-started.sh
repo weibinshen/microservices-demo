@@ -20,6 +20,4 @@ while [[ ! $curlResult == "200" ]]; do
   curlResult=$(curl -s -o /dev/null -I -w "%{http_code}" http://config-server:8888/actuator/health)
 done
 
-# move on with launching our service. This is the original entrypoint.
-# To run bash shell on a specific container, use 'docker exec -it <containerID> /bin/bash'
-./cnb/lifecycle/launcher
+check-keycloak-server-started.sh

@@ -1,5 +1,10 @@
+# I created this copy of web service to demonstrate single-sign-on:
+# Multiple clients under then same realm can use single-sign-on. If we have logged into one service, we can be automatically logged into the other.
+# Authorization server directly returns authorization code without asking for user's credentials in this case.
+# Because it sees there is an active session for this realm.
+# For this to work, the two clients must be in the same browser.
 server:
-  port: 8184
+  port: 8185
   servlet:
     context-path: /elastic-query-web-client
 
@@ -20,7 +25,7 @@ elastic-query-web-client:
         host: localhost
         port: 8183
       -
-        id: elastic-query-service-2
+        id: elastic-query-service-1
         host: localhost
         port: 8186
   query-by-text:
@@ -37,9 +42,9 @@ spring:
       client:
         registration:
           keycloak:
-            client-id: 'elastic-query-web-client'
+            client-id: 'elastic-query-web-client-2'
             # find this client-secret from keycloak, under Client entity, select elastic-query-web-client
-            client-secret: '{cipher}92b4bbdc142ad7a9cbf85ebfeec213026187c4641c8c7709fd1d1801abc5a1f5e0cbf6c277f82af75d7e8b106ba11afaacd0fc366869d7065590814c877004af'
+            client-secret: '{cipher}314c72f5adcde5a718ae0b7b32456564ba62233e35d5cda8f73f36c362da66073d952c361fee2fb0c6f87b188226bf29f1e7819286253d6b34b4597b2e753c0a'
             authorization-grant-type: authorization_code
             # base url is also configured in keycloak. we configured it to http://localhost:8184/elastic-query-web-client
             redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
@@ -52,7 +57,7 @@ spring:
 
 
 security:
-  logout-success-url: http://localhost:8184/elastic-query-web-client
+  logout-success-url: http://localhost:8185/elastic-query-web-client
   default-client-registration-id: keycloak
 
 user-config:
