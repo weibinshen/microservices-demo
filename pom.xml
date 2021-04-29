@@ -22,7 +22,8 @@
 		<module>reactive-elastic-query-service</module>
 		<module>reactive-elastic-query-web-client</module>
         <module>elastic-query-web-client-2</module>
-    </modules>
+		<module>kafka-streams-service</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -38,11 +39,12 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<spring-boot.version>2.3.9.RELEASE</spring-boot.version>
+
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<twitter4j.version>4.0.7</twitter4j.version>
 		<lombok.version>1.18.16</lombok.version>
-		<avro.version>1.10.1</avro.version>
+
+		<spring-boot.version>2.3.9.RELEASE</spring-boot.version>
 		<spring-kafka.version>2.6.6</spring-kafka.version>
 		<spring-retry.version>1.3.1</spring-retry.version>
 		<kafka-avro-serializer.version>5.5.3</kafka-avro-serializer.version>
@@ -51,6 +53,13 @@
 		<elastic.version>7.9.1</elastic.version>
 <!--		spring-openapi-ui = open API spec + SpringBoot-->
 		<springdoc-openapi-ui.version>1.5.0</springdoc-openapi-ui.version>
+
+		<kafka-streams.version>2.6.0</kafka-streams.version>
+		<kafka-clients.version>2.6.0</kafka-clients.version>
+		<kafka-avro-serializer.version>5.5.1</kafka-avro-serializer.version>
+		<kafka-streams-avro-serde.version>5.5.1</kafka-streams-avro-serde.version>
+		<avro.version>1.10.1</avro.version>
+
 	</properties>
 
 	<repositories>
@@ -269,6 +278,24 @@
 						<artifactId>swagger-core</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>io.confluent</groupId>
+				<artifactId>kafka-streams-avro-serde</artifactId>
+				<version>${kafka-streams-avro-serde.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka-streams</artifactId>
+				<version>${kafka-streams.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka-clients</artifactId>
+				<version>${kafka-clients.version}</version>
 			</dependency>
 
 			<dependency>
