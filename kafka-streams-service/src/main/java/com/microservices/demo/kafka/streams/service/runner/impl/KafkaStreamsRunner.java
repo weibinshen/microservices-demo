@@ -76,6 +76,8 @@ public class KafkaStreamsRunner implements StreamsRunner<String, Long> {
             if (keyValueStore == null) {
                 synchronized (this) {
                     if (keyValueStore == null) {
+                        // store: Get a facade wrapping the local StateStore instances with the provided storeName if the Store's type is accepted by the provided queryableStoreType.
+                        // The returned object can be used to query the StateStore instances.
                         keyValueStore = kafkaStreams.store(StoreQueryParameters
                                 .fromNameAndType(kafkaStreamsConfigData.getWordCountStoreName(),
                                         QueryableStoreTypes.keyValueStore()));
@@ -111,13 +113,22 @@ public class KafkaStreamsRunner implements StreamsRunner<String, Long> {
         Serde<TwitterAnalyticsAvroModel> serdeTwitterAnalyticsAvroModel = getSerdeAnalyticsModel(serdeConfig);
 
         twitterAvroModelKStream
+                // flatMapValues: Create a new KStream by transforming the value of each record in this stream into zero or more values with the same key in the new stream.
                 .flatMapValues(value -> Arrays.asList(pattern.split(value.getText().toLowerCase())))
+                // groupBy: Group the records of this KStream on a new key that is selected using the provided KeyValueMapper and default serializers and deserializers.
+                // Without groupBy to derive a KGroupedStream, we cannot perform aggregation.
+                // The KeyValueMapper selects a new key (which should be of the same type) while preserving the original values.
                 .groupBy((key, word) -> word)
+                // count: derived the count for each aggregation key (which is the word) and saves them in a local KTable changelog stream
+                // The result is written into a local KeyValueStore (which is basically an ever-updating materialized view) provided by the given store name in materialized.
                 .count(Materialized
                         .<String, Long, KeyValueStore<Bytes, byte[]>>as(kafkaStreamsConfigData.getWordCountStoreName()))
                 .toStream()
+                // map: Transform each record of the input stream into a new record in the output stream (both key and value type can be altered arbitrarily).
                 .map(mapToAnalyticsModel())
+                // to: Materialize this stream to a topic using the provided Produced instance
                 .to(kafkaStreamsConfigData.getOutputTopicName(),
+                        // with: Create a Produced instance with provided keySerde and valueSerde.
                         Produced.with(Serdes.String(), serdeTwitterAnalyticsAvroModel));
 
     }
