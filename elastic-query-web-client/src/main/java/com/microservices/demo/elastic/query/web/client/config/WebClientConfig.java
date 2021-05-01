@@ -40,6 +40,9 @@ public class WebClientConfig {
             OAuth2AuthorizedClientRepository oAuth2AuthorizedClientRepository
     ) {
 
+        // This is just one of the two ways of using oauth on the web client,
+        // where we directly configure OAuth2 on the web client
+        // See the webClientConfig of elastic-query-service for the other way...
         ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 =
                 new ServletOAuth2AuthorizedClientExchangeFilterFunction(
                         clientRegistrationRepository,
