@@ -31,7 +31,7 @@ spring:
     # The SQL script to create this schema is archived in analytics-service-schema-creation.sql
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=analytics&binaryTransfer=true&reWriteBatchedInserts=true
     username: postgres
-    password: admin
+    password: '{cipher}<encrypted password>'
     driver-class-name: org.postgresql.Driver
     platform: postgres
 
