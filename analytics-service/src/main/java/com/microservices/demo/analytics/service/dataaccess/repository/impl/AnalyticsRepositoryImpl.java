@@ -12,6 +12,13 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Collection;
 
+// The batching we are implemented here will take effect inside Hibernate
+// So Hibernate logs won't reflect whether the DB writes are batched.
+// To observe that, we need to look at Postgre Logs.
+// To do that, sudo-vi on postgre config file: /Library/PostgreSQL/13/data/postgresql.conf
+// And set log_statement to 'all' and save. Validate in pgAdmin with "select * from pg_file_settings"
+// Then view the logs by "ls /Library/PostgreSQL/13/data/log" and "sudo tail -500 /Library/PostgreSQL/13/data/log/<log_file_name>"
+
 @Repository
 public class AnalyticsRepositoryImpl<T extends BaseEntity<PK>, PK> implements AnalyticsCustomRepository<T, PK> {
 
