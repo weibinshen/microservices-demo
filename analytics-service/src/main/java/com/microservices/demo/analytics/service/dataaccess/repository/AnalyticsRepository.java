@@ -13,6 +13,6 @@ public interface AnalyticsRepository extends JpaRepository<AnalyticsEntity, UUID
         AnalyticsCustomRepository<AnalyticsEntity, UUID> {
 
     // This query is written in JPQL
-    @Query(value = "select e from AnalyticsEntity e where e.word=:word order by e.recordDate")
+    @Query(value = "select e from AnalyticsEntity e where e.word=:word order by e.recordDate desc")
     List<AnalyticsEntity> getAnalyticsEntitiesByWord(@Param("word") String word, Pageable pageable);
 }

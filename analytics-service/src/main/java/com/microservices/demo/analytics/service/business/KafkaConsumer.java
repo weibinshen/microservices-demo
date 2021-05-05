@@ -1,4 +1,4 @@
-package com.microservices.demo.kafka.consumer.api;
+package com.microservices.demo.analytics.service.business;
 
 import org.apache.avro.specific.SpecificRecordBase;
 
