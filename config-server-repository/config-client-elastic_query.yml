@@ -11,10 +11,14 @@ elastic-query-service:
     accept-type: 'application/vnd.api.v1+json'
     # This property is configured by the Enum values defined in
     # com.microservices.demo.elastic.query.service.QueryType
-    query-type: 'KAFKA_STATE_STORE'
+    query-type: 'ANALYTICS_DATABASE'
   query-from-kafka-state-store:
     method: GET
     uri: "http://localhost:8187/kafka-streams-service/get-word-count-by-word/{word}"
+    accept: ${elastic-query-service.webclient.accept-type}
+  query-from-analytics-database:
+    method: GET
+    uri: "http://localhost:8188/analytics-service/get-word-count-by-word/{word}"
     accept: ${elastic-query-service.webclient.accept-type}
 
 server:

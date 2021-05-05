@@ -48,7 +48,7 @@ spring:
         provider:
           keycloak:
             # Spring Security 5 automatically configures an OAuth2 client as far as the issuerUri is specified.
-            issuerUri: http://localhost:8081/auth/realms/microservices-realm
+            issuerUri: http://localhost:9091/auth/realms/microservices-realm
 
 
 security:

@@ -17,8 +17,8 @@ kafka-consumer-config:
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
   batch-listener: true
-  # We will start listening explicitly after seeing the topic is already there.
-  auto-startup: false
+  # To start listening explicitly after seeing the topic is already there, set this to false
+  auto-startup: true
   # Concurrency set to the same as the number of partitions, for maximum concurrency and higher throughput.
   concurrency-level: 3
   # Duration to wait for a heartbeat before marking this consumer as dead.
