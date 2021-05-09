@@ -128,6 +128,7 @@ services:
       - "ELASTIC-QUERY-SERVICE_QUERY-FROM-KAFKA-STATE-STORE_URI=http://kafka-streams-service/kafka-streams-service/get-word-count-by-word/{word}"
       - "ELASTIC-QUERY-SERVICE_QUERY-FROM-ANALYTICS-DATABASE_URI=http://analytics-service/analytics-service/get-word-count-by-word/{word}"
       - "ELASTIC-QUERY-SERVICE_WEBCLIENT_QUERY-TYPE=ANALYTICS_DATABASE"
+      - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}
@@ -165,6 +166,7 @@ services:
       - "ELASTIC-QUERY-SERVICE_QUERY-FROM-KAFKA-STATE-STORE_URI=http://kafka-streams-service/kafka-streams-service/get-word-count-by-word/{word}"
       - "ELASTIC-QUERY-SERVICE_QUERY-FROM-ANALYTICS-DATABASE_URI=http://analytics-service/analytics-service/get-word-count-by-word/{word}"
       - "ELASTIC-QUERY-SERVICE_WEBCLIENT_QUERY-TYPE=ANALYTICS_DATABASE"
+      - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}
@@ -198,6 +200,7 @@ services:
       - "SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER-URI=http://keycloak-authorization-server:9091/auth/realms/microservices-realm"
       - "SECURITY_LOGOUT-SUCCESS-URL=http://elastic-query-web-client-1:8184/elastic-query-web-client"
       - "SECURITY_DEFAULT-CLIENT-REGISTRATION-ID=keycloak"
+      - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}
@@ -231,6 +234,7 @@ services:
       - "SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER-URI=http://keycloak-authorization-server:9091/auth/realms/microservices-realm"
       - "SECURITY_LOGOUT-SUCCESS-URL=http://elastic-query-web-client-2:8185/elastic-query-web-client"
       - "SECURITY_DEFAULT-CLIENT-REGISTRATION-ID=keycloak"
+      - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}
@@ -258,6 +262,7 @@ services:
       - "SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://keycloak-authorization-server:9091/auth/realms/microservices-realm/protocol/openid-connect/certs"
       - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
       - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
+      - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}
@@ -286,6 +291,7 @@ services:
       - "SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/postgres?currentSchema=analytics&binaryTransfer=true&reWriteBatchedInserts=true"
       - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
       - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
+      - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}

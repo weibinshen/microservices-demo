@@ -2,6 +2,10 @@
 
 eureka:
   client:
+    # IMPORTANT:
+    # It looks like what's in application-singleserver.yml won't override what's defined here
+    # So if we were to run a single instance from IDE, we need to manually set these two values to false.
+
     # register this server itself, as well as its peers as a client.
     register-with-eureka: true
     # we have multiple Eureka server nodes acting together as peer registries.
