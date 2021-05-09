@@ -21,7 +21,10 @@ import reactor.netty.tcp.TcpClient;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-@LoadBalancerClient(name = "elastic-query-service", configuration = ElasticQueryServiceInstanceListSupplierConfig.class)
+// Since we are going to use spring cloud load balancing,
+// we do not need this LoadBalancerClient annotation,
+// and deleting ElasticQueryServiceInstanceListSupplierConfig
+// @LoadBalancerClient(name = "elastic-query-service", configuration = ElasticQueryServiceInstanceListSupplierConfig.class)
 public class WebClientConfig {
 
     private final ElasticQueryWebClientConfigData.WebClient elasticQueryWebClientConfigData;

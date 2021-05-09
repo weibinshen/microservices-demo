@@ -1,0 +1,55 @@
+# We use this yml file when we want to run two instances to increase availability
+
+eureka:
+  client:
+    # register this server itself, as well as its peers as a client.
+    register-with-eureka: true
+    # we have multiple Eureka server nodes acting together as peer registries.
+    # When a Eureka server starts up, (by default) it searches for other peer registries, as we set it to true.
+    fetch-registry: true
+  instance:
+    appname: service-registry-cluster
+
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        # Client Side Load Balancer: Ribbon
+        # Since we use Spring Cloud load balancer, we set this to false.
+        enabled: false
+  profiles:
+    # We use the single server config (i.e. application-singleserver.yml) by default
+    # This can be overridden in services.yml file when run with docker.
+    active: singleserver
+
+
+---
+server:
+  port: 8761
+spring:
+  profiles: peer1
+eureka:
+  instance:
+    hostname: discovery-service-1
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    serviceUrl:
+      # With defaultZone property,
+      # we created a cluster and specified we will use two instances.
+      # And also we let each instance to find each other
+      defaultZone: http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/
+
+---
+server:
+  port: 8762
+spring:
+  profiles: peer2
+eureka:
+  instance:
+    hostname: discovery-service-2
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service-2:8762/eureka/,http://discovery-service-1:8761/eureka/

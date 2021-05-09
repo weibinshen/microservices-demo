@@ -1,0 +1,17 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    # To avoid this service registering itself for single service use-case.
+    # Because when there is no peer, we get an error.
+    register-with-eureka: false
+    # For a single server case, no need to fetch other registries.
+    fetch-registry: false
+  instance:
+    appname: service-registry-cluster
+
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF

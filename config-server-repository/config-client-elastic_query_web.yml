@@ -13,16 +13,16 @@ elastic-query-web-client:
     accept-type: 'application/vnd.api.v1+json'
     # base-url refer to the service-id so we can use client side load balancing.
     base-url: 'http://elastic-query-service/elastic-query-service/documents'
-    service-id: elastic-query-service
-    instances:
-      -
-        id: elastic-query-service-1
-        host: localhost
-        port: 8183
-      -
-        id: elastic-query-service-2
-        host: localhost
-        port: 8186
+#    service-id: elastic-query-service
+#    instances:
+#      -
+#        id: elastic-query-service-1
+#        host: localhost
+#        port: 8183
+#      -
+#        id: elastic-query-service-2
+#        host: localhost
+#        port: 8186
   query-by-text:
     method: POST
     uri: "/get-document-by-text"
@@ -30,6 +30,10 @@ elastic-query-web-client:
     accept: ${elastic-query-web-client.webclient.accept-type}
 
 spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
   thymeleaf:
     cache: false
   security:
