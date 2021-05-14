@@ -1,5 +1,9 @@
 # We use this yml file when we want to run two instances to increase availability
 
+# The discovery service do not need a bash script to be the entry point,
+# Because the discovery client and eureka server are both managed by spring library,
+# and there is a retry mechanism to successfully connect to eureka server from any service when each component is up and running.
+
 eureka:
   client:
     # IMPORTANT:
