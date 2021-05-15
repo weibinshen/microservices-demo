@@ -16,3 +16,9 @@ eureka:
     serviceUrl:
       # alternatively we can set defaultZone: http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/
       defaultZone: http://localhost:8761/eureka/
+  instance:
+    # We set these values small to be able to test them easily. In production we may set them to around 30 seconds.
+    # Renew lease to Eureka service every 5 seconds
+    lease-expiration-duration-in-seconds: 5
+    # Heart beat every 2 seconds to Eureka service
+    lease-renewal-interval-in-seconds: 2

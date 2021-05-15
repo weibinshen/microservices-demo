@@ -17,6 +17,14 @@ eureka:
     fetch-registry: true
   instance:
     appname: service-registry-cluster
+  server:
+    # Do not try to recover if no heartbeat from client, just evict.
+    # By default Eureka will wait longer before declaring a client dead for higher resiliency
+    enable-self-preservation: false
+    expected-client-renewal-interval-seconds: 3
+    # Discovery service will check reachability of services every 2 seconds.
+    # If not reachable, as configured above, evict immediately.
+    eviction-interval-timer-in-ms: 2000
 
 spring:
   cloud:
