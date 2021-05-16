@@ -101,6 +101,7 @@ management:
     web:
       base-path: /actuator
       exposure.include: health, prometheus
+      # In prometheus.yml file we set metrics_path: '/actuator/metrics'
       path-mapping.prometheus: metrics
   endpoint:
     health:
