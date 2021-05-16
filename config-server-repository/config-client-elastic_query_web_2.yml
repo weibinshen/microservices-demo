@@ -17,7 +17,7 @@ elastic-query-web-client:
     content-type: 'application/vnd.api.v1+json'
     accept-type: 'application/vnd.api.v1+json'
     # base-url refer to the service-id so we can use client side load balancing.
-    base-url: 'http://elastic-query-service/elastic-query-service/documents'
+    base-url: 'http://gateway-service/elastic-query-service/documents'
 #    service-id: elastic-query-service
 #    instances:
 #      -

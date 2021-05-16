@@ -15,17 +15,17 @@ elastic-query-service:
   query-from-kafka-state-store:
     method: GET
     # Discovery service will do the load balancing, by forwarding the request to the service with the same name but different ports
-    uri: "http://kafka-streams-service/kafka-streams-service/get-word-count-by-word/{word}"
+    uri: "http://gateway-service/kafka-streams-service/get-word-count-by-word/{word}"
     accept: ${elastic-query-service.webclient.accept-type}
   query-from-analytics-database:
     method: GET
-    uri: "http://analytics-service/analytics-service/get-word-count-by-word/{word}"
+    uri: "http://gateway-service/analytics-service/get-word-count-by-word/{word}"
     accept: ${elastic-query-service.webclient.accept-type}
 
 server:
   port: 8183
   servlet:
-    context-path: /elastic-query-service
+    context-path: /
 
 spring:
   cloud:
@@ -94,4 +94,16 @@ springdoc:
 
 security:
   # There is no wildcard in this path, so sub-paths of /api-docs are still security-guarded.
-  paths-to-ignore: /api-docs
+  paths-to-ignore: /api-docs, /actuator/**
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure.include: health, prometheus
+      path-mapping.prometheus: metrics
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      cache.time-to-live: 1ms
