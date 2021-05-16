@@ -40,3 +40,7 @@ build/
 
 ### API Keys ###
 twitter4j.properties
+
+### Monitoring ###
+docker-compose/grafana/
+docker-compose/prometheus/
