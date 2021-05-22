@@ -63,6 +63,7 @@ services:
     networks:
       - ${GLOBAL_NETWORK:-elastic}
 
+# to visit kibana: http://localhost:5601/app/home#/
   kibana:
     image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
     ports:
