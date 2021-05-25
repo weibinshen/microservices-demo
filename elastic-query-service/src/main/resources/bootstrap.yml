@@ -22,3 +22,6 @@ eureka:
     lease-expiration-duration-in-seconds: 5
     # Heart beat every 2 seconds to Eureka service
     lease-renewal-interval-in-seconds: 2
+
+log:
+  appName: elastic-query-service

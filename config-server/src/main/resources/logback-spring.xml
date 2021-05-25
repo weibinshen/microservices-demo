@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <springProperty name="log.app-name" source="log.app-name" />
+
     <property name="DEV_HOME" value="./config-server/logs"/>
-    <property name="APP_NAME" value="config-server"/>
+    <property name="APP_NAME" value="${log.app-name}"/>
 
     <!--    logback-common.xml from app-config-data will end-up be in the class path-->
     <!--    so we can include that resource without providing a path.-->
     <include resource="logback-common.xml"/>
-
 </configuration>

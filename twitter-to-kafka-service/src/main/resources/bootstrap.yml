@@ -15,3 +15,6 @@ spring:
       uri: http://localhost:8888
       username: spring_cloud_user
       password: '{cipher}50730c73fd5da3bf692d90db2ab065d38e69f4705a1547411a7d17af98991df1424e5d78d0c1256835e0828f6adaddb3'
+
+log:
+  app-name: twitter-to-kafka-service
