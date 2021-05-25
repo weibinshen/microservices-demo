@@ -26,6 +26,9 @@ public class ElasticDocumentController {
         this.elasticQueryService = queryService;
     }
 
+    // Here we use Server-Sent events in the form of Http streaming by using "text/event-stream" Mime type.
+    // reactive-elastic-query-service controller uses built-in ReactiveCrudRepository
+    // to fetch data and return a Flux object to facilitate streaming data.
     @PostMapping(value = "/get-doc-by-text",
             produces = MediaType.TEXT_EVENT_STREAM_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
