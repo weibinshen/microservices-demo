@@ -49,6 +49,15 @@ services:
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888,http://config-server-ha:8889"
       - "LOG_APP-NAME=twitter-to-kafka-service"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      # We must set SPRING_ZIPKIN_BASE-URL if we want to use HTTP for Sleuth and Zipkin to communicate.
+      # We run Zipkin in the container of our application network, we need to reach to Zipkin by its docker container host name
+      # When we use Kafka as the communication point for Sleuth, we can actually omit SPRING_ZIPKIN_BASE-URL
+      - "SPRING_ZIPKIN_BASE-URL=http://zipkin:9411"
+      # If there is Spring Kafka dependency in the project but we still want to use HTTP, we can set SPRING_ZIPKIN_SENDER_TYPE to web.
+      # Here we are using the twitter-to-kafka service to try this. And for the other services we will use kafka.
+      # We can also use rabbit MQ for this.
+      - "SPRING_ZIPKIN_SENDER_TYPE=web"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
   kafka-to-elastic-service:
@@ -82,6 +91,9 @@ services:
       - "ELASTIC-CONFIG_CONNECTION-URL=http://elastic-1:9200"
       - "LOG_APP-NAME=kafka-to-elastic-service"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "SPRING_ZIPKIN_SENDER_TYPE=kafka"
+      - "SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
   # We have been using config-first approach. Another approach is discovery-first approach.
@@ -155,6 +167,9 @@ services:
       - "LOG_APP-NAME=elastic-query-service-1"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "SPRING_ZIPKIN_SENDER_TYPE=kafka"
+      - "SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
   elastic-query-service-2:
@@ -195,6 +210,9 @@ services:
       - "LOG_APP-NAME=elastic-query-service-2"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "SPRING_ZIPKIN_SENDER_TYPE=kafka"
+      - "SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
   elastic-query-web-client:
@@ -230,6 +248,9 @@ services:
       - "LOG_APP-NAME=elastic-query-web-client"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "SPRING_ZIPKIN_SENDER_TYPE=kafka"
+      - "SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
 #  elastic-query-web-client-2:
@@ -294,6 +315,9 @@ services:
       - "LOG_APP-NAME=kafka-streams-service"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "SPRING_ZIPKIN_SENDER_TYPE=kafka"
+      - "SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
   analytics-service:
@@ -325,6 +349,9 @@ services:
       - "LOG_APP-NAME=analytics-service"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "SPRING_ZIPKIN_SENDER_TYPE=kafka"
+      - "SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
   discovery-service-1:
@@ -382,6 +409,9 @@ services:
       - "LOG_APP-NAME=gateway-service-1"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "SPRING_ZIPKIN_SENDER_TYPE=kafka"
+      - "SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
   gateway-service-2:
@@ -407,5 +437,8 @@ services:
       - "LOG_APP-NAME=gateway-service-2"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "SPRING_ZIPKIN_SENDER_TYPE=kafka"
+      - "SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "SPRING_SLEUTH_SAMPLER_PROBABILITY=1.0"
     networks:
       - ${GLOBAL_NETWORK:-services}
