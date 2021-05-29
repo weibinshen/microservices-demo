@@ -1,4 +1,7 @@
 # Event-driven microservices with Kafka, Elasticsearch and PostgreSQL
+
+![Image of Sercies Diagram](https://github.com/weibinshen/microservices-demo/blob/main/services-diagram.png)
+
 ## Services Overview
 
 ### Data Ingestion Services
